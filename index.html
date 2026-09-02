@@ -1,236 +1,535 @@
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>GODHAB — Music Archive</title>
+    <title>GODHAB — Archive 1998—</title>
 
-    <meta name="description"
-          content="Godhab — music archive. Music created from 1998 to the present.">
+    <meta name="description" content="GODHAB — Music archive. Sounds, experiments and recordings since 1998.">
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg: #080808;
+            --surface: #101010;
+            --surface-light: #161616;
+            --text: #e8e8e8;
+            --muted: #777;
+            --line: #242424;
+            --accent: #b8ff00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* --------------------
+           HEADER
+        -------------------- */
+
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 32px 5vw 40px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .logo {
+            color: var(--text);
+            font-weight: 700;
+            letter-spacing: 0.08em;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .hero {
+            max-width: 1400px;
+            width: 100%;
+            margin: auto;
+        }
+
+        .eyebrow {
+            color: var(--muted);
+            font-size: 13px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: clamp(5rem, 16vw, 15rem);
+            line-height: 0.78;
+            letter-spacing: -0.075em;
+            font-weight: 700;
+            margin-left: -0.05em;
+        }
+
+        .hero-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .intro {
+            max-width: 480px;
+            color: #aaa;
+            font-size: 18px;
+        }
+
+        .since {
+            font-size: clamp(2rem, 5vw, 5rem);
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            color: #252525;
+            white-space: nowrap;
+        }
+
+        /* --------------------
+           MAIN
+        -------------------- */
+
+        main {
+            max-width: 1400px;
+            margin: auto;
+            padding: 120px 5vw;
+        }
+
+        section {
+            margin-bottom: 180px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 18px;
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+        }
+
+        .section-number {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* --------------------
+           ALBUMS
+        -------------------- */
+
+        .albums {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+        }
+
+        .album {
+            background: var(--surface);
+            min-height: 330px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: background 0.3s ease;
+        }
+
+        .album:hover {
+            background: var(--surface-light);
+        }
+
+        .album-year {
+            font-size: 12px;
+            color: var(--muted);
+            letter-spacing: 0.12em;
+        }
+
+        .album-title {
+            font-size: clamp(2rem, 4vw, 4rem);
+            letter-spacing: -0.05em;
+            line-height: 0.95;
+        }
+
+        .album-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* --------------------
+           TIMELINE
+        -------------------- */
+
+        .timeline {
+            border-left: 1px solid var(--line);
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 50px;
+            padding: 35px 0 35px 30px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .timeline-year {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .timeline-content h3 {
+            font-size: 28px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            color: var(--muted);
+            max-width: 600px;
+        }
+
+        /* --------------------
+           ABOUT
+        -------------------- */
+
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 80px;
+        }
+
+        .about-label {
+            color: var(--muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .about-text {
+            font-size: clamp(1.7rem, 3vw, 3.2rem);
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+        }
+
+        .about-text span {
+            color: var(--muted);
+        }
+
+        /* --------------------
+           FOOTER
+        -------------------- */
+
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 35px 5vw;
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* --------------------
+           MOBILE
+        -------------------- */
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 22px 6vw 30px;
+            }
+
+            .topbar {
+                font-size: 10px;
+            }
+
+            .hero-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-top: 60px;
+            }
+
+            .intro {
+                font-size: 16px;
+            }
+
+            .since {
+                font-size: 3rem;
+            }
+
+            main {
+                padding: 80px 6vw;
+            }
+
+            section {
+                margin-bottom: 110px;
+            }
+
+            .albums {
+                grid-template-columns: 1fr;
+            }
+
+            .album {
+                min-height: 280px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 70px 1fr;
+                gap: 20px;
+                padding-left: 20px;
+            }
+
+            .timeline-content h3 {
+                font-size: 22px;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            footer {
+                padding: 25px 6vw;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<header class="site-header">
-    <div class="logo">GODHAB</div>
+<header>
 
-    <nav>
-        <a href="#music">Music</a>
-        <a href="#archive">Archive</a>
-        <a href="#about">About</a>
-    </nav>
+    <div class="topbar">
+        <div class="logo">GODHAB</div>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            MUSIC ARCHIVE
+        </div>
+    </div>
+
+
+    <div class="hero">
+
+        <div class="eyebrow">
+            Personal recordings / experiments / fragments
+        </div>
+
+        <h1>GODHAB</h1>
+
+        <div class="hero-bottom">
+
+            <div class="intro">
+                Music created, recorded and collected
+                across decades. From the first experiments
+                in 1998 to whatever comes next.
+            </div>
+
+            <div class="since">
+                1998—
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="topbar">
+        <span>ARCHIVE 001</span>
+        <span>SCROLL TO EXPLORE ↓</span>
+    </div>
+
 </header>
 
 
 <main>
 
-    <!-- INTRO -->
+    <!-- ALBUMS -->
 
-    <section class="hero">
+    <section id="music">
 
-        <div class="hero-text">
-            <p class="eyebrow">MUSIC ARCHIVE · 1998 — 2026</p>
+        <div class="section-header">
+            <div class="section-title">Selected recordings</div>
+            <div class="section-number">01 / MUSIC</div>
+        </div>
 
-            <h1>
-                GODHAB
-            </h1>
+        <div class="albums">
 
-            <p class="intro">
-                An archive of music, albums, fragments and experiments
-                created since 1998.
-            </p>
+            <a class="album" href="#">
+                <div class="album-year">1998</div>
 
-            <a class="button" href="#music">
-                ENTER ARCHIVE
+                <div class="album-title">
+                    First Signals
+                </div>
+
+                <div class="album-meta">
+                    <span>Album / 01</span>
+                    <span>1998</span>
+                </div>
             </a>
-        </div>
-
-    </section>
 
 
-    <!-- NUMBERS -->
+            <a class="album" href="#">
+                <div class="album-year">2001</div>
 
-    <section class="stats">
-
-        <div>
-            <span>01</span>
-            <p>BEGINNING</p>
-            <strong>1998</strong>
-        </div>
-
-        <div>
-            <span>02</span>
-            <p>ALBUMS</p>
-            <strong>07</strong>
-        </div>
-
-        <div>
-            <span>03</span>
-            <p>YEARS</p>
-            <strong>28+</strong>
-        </div>
-
-    </section>
-
-
-    <!-- MUSIC -->
-
-    <section id="music" class="section">
-
-        <div class="section-heading">
-            <p class="eyebrow">SELECTED WORKS</p>
-            <h2>Music</h2>
-        </div>
-
-
-        <div class="album-list">
-
-            <article class="album">
-
-                <div class="album-year">
-                    01<br>
-                    <span>1999</span>
+                <div class="album-title">
+                    Transmission
                 </div>
 
-                <div class="album-cover">
-                    <div>GODHAB</div>
+                <div class="album-meta">
+                    <span>Album / 02</span>
+                    <span>2001</span>
+                </div>
+            </a>
+
+
+            <a class="album" href="#">
+                <div class="album-year">2007</div>
+
+                <div class="album-title">
+                    Fragments
                 </div>
 
-                <div class="album-info">
-
-                    <p class="type">ALBUM</p>
-
-                    <h3>Album One</h3>
-
-                    <p>
-                        The first archived Godhab release.
-                    </p>
-
-                    <button
-                        class="play-button"
-                        data-audio="albums/1999-album-one/01-track-one.mp3">
-                        ▶ PLAY
-                    </button>
-
-                </div>
-
-            </article>
-
-
-            <article class="album">
-
-                <div class="album-year">
-                    02<br>
-                    <span>2003</span>
-                </div>
-
-                <div class="album-cover">
-                    <div>GODHAB</div>
-                </div>
-
-                <div class="album-info">
-
-                    <p class="type">ALBUM</p>
-
-                    <h3>Album Two</h3>
-
-                    <p>
-                        Music from the second period.
-                    </p>
-
-                    <button
-                        class="play-button"
-                        data-audio="albums/2003-album-two/01-track-one.mp3">
-                        ▶ PLAY
-                    </button>
-
-                </div>
-
-            </article>
-
-
-            <article class="album">
-
-                <div class="album-year">
-                    03<br>
+                <div class="album-meta">
+                    <span>Album / 03</span>
                     <span>2007</span>
                 </div>
+            </a>
 
-                <div class="album-cover">
-                    <div>GODHAB</div>
+
+            <a class="album" href="#">
+                <div class="album-year">2026</div>
+
+                <div class="album-title">
+                    Recent Works
                 </div>
 
-                <div class="album-info">
-
-                    <p class="type">ALBUM</p>
-
-                    <h3>Album Three</h3>
-
-                    <p>
-                        Another point in the archive.
-                    </p>
-
-                    <button
-                        class="play-button"
-                        data-audio="albums/2007-album-three/01-track-one.mp3">
-                        ▶ PLAY
-                    </button>
-
+                <div class="album-meta">
+                    <span>Album / 07</span>
+                    <span>2026</span>
                 </div>
-
-            </article>
+            </a>
 
         </div>
 
     </section>
 
 
-    <!-- ARCHIVE -->
+    <!-- TIMELINE -->
 
-    <section id="archive" class="section archive-section">
+    <section>
 
-        <div class="section-heading">
-            <p class="eyebrow">THE UNFINISHED</p>
-            <h2>Archive</h2>
+        <div class="section-header">
+            <div class="section-title">Archive timeline</div>
+            <div class="section-number">02 / HISTORY</div>
         </div>
 
-        <div class="archive-grid">
+        <div class="timeline">
 
-            <a href="#" class="archive-item">
-                <span>01</span>
-                <h3>Fragments</h3>
-                <p>
-                    Ideas, sketches and unfinished pieces.
-                </p>
-            </a>
+            <div class="timeline-item">
+                <div class="timeline-year">1998</div>
 
-            <a href="#" class="archive-item">
-                <span>02</span>
-                <h3>Experiments</h3>
-                <p>
-                    Sound experiments and recordings.
-                </p>
-            </a>
+                <div class="timeline-content">
+                    <h3>The beginning.</h3>
+                    <p>
+                        First recordings, experiments and the beginning
+                        of an ongoing relationship with sound.
+                    </p>
+                </div>
+            </div>
 
-            <a href="#" class="archive-item">
-                <span>03</span>
-                <h3>Early Years</h3>
-                <p>
-                    Music from the beginning in 1998.
-                </p>
-            </a>
 
-            <a href="#" class="archive-item">
-                <span>04</span>
-                <h3>Unreleased</h3>
-                <p>
-                    Music that never became an official release.
-                </p>
-            </a>
+            <div class="timeline-item">
+                <div class="timeline-year">2000s</div>
+
+                <div class="timeline-content">
+                    <h3>Exploration.</h3>
+                    <p>
+                        Different machines, different styles,
+                        different ideas. Albums and unfinished pieces
+                        begin to accumulate.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="timeline-item">
+                <div class="timeline-year">2010s</div>
+
+                <div class="timeline-content">
+                    <h3>More fragments.</h3>
+                    <p>
+                        Experiments, sketches and recordings that were
+                        never necessarily intended to become finished works.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="timeline-item">
+                <div class="timeline-year">NOW</div>
+
+                <div class="timeline-content">
+                    <h3>The archive continues.</h3>
+                    <p>
+                        Old recordings are being collected and preserved.
+                        New ones are still being made.
+                    </p>
+                </div>
+            </div>
 
         </div>
 
@@ -239,31 +538,30 @@
 
     <!-- ABOUT -->
 
-    <section id="about" class="section about-section">
+    <section>
 
-        <div class="section-heading">
-            <p class="eyebrow">ABOUT</p>
-            <h2>Godhab</h2>
+        <div class="section-header">
+            <div class="section-title">About the archive</div>
+            <div class="section-number">03 / INFO</div>
         </div>
 
-        <div class="about-text">
+        <div class="about">
 
-            <p class="large">
-                Music created since 1998.
-            </p>
+            <div class="about-label">
+                GODHAB<br>
+                1998—∞
+            </div>
 
-            <p>
-                This is a private archive of music created under the
-                name Godhab. It contains albums, fragments,
-                experiments and recordings from different periods
-                and different directions.
-            </p>
+            <div class="about-text">
 
-            <p>
-                Some pieces were released.
-                Some were forgotten.
-                Some were never finished.
-            </p>
+                This is not a discography.
+                <span>
+                    It's a collection of sounds,
+                    ideas, experiments and unfinished things
+                    that accumulated over the years.
+                </span>
+
+            </div>
 
         </div>
 
@@ -272,35 +570,13 @@
 </main>
 
 
-<!-- PLAYER -->
-
-<div id="player" class="player">
-
-    <div class="player-info">
-
-        <span class="player-label">NOW PLAYING</span>
-
-        <strong id="track-name">Nothing playing</strong>
-
-    </div>
-
-    <audio id="audio-player" controls></audio>
-
-</div>
-
-
 <footer>
 
-    <div>GODHAB</div>
+    <span>GODHAB — MUSIC ARCHIVE</span>
 
-    <div>
-        MUSIC ARCHIVE · 1998 — 2026
-    </div>
+    <span>1998—2026</span>
 
 </footer>
-
-
-<script src="script.js"></script>
 
 </body>
 </html>
